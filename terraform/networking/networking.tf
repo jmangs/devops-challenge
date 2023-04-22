@@ -69,12 +69,27 @@ resource "oci_core_security_list" "public-access-security-list" {
   vcn_id         = module.vcn.vcn_id
   display_name   = "public-access-security-list"
 
-  # TODO: Lock me down more. Only allow TCP out to 80 on public internet and 8080 to the application.
+  egress_security_rules {
+    stateless        = false
+    destination      = "10.0.0.0/24"
+    destination_type = "CIDR_BLOCK"
+    protocol = "6"
+    tcp_options {
+      min = 8080
+      max = 8080
+    }
+  }
+
   egress_security_rules {
     stateless        = false
     destination      = "0.0.0.0/0"
     destination_type = "CIDR_BLOCK"
-    protocol         = "all"
+    protocol = "6"
+    
+    tcp_options {
+      min = 80
+      max = 80
+    }
   }
 
   ingress_security_rules {

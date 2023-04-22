@@ -14,8 +14,8 @@ resource "oci_load_balancer_load_balancer" "application_loadbalancer" {
 resource "oci_load_balancer_backend_set" "application_backend_set" {
   health_checker {
     protocol = "HTTP"
-    url_path = "/healthcheck"
-    port     = 8081
+    url_path = "/status"
+    port     = 8080
   }
   load_balancer_id = oci_load_balancer_load_balancer.application_loadbalancer.id
   name             = "application-backend-set"

@@ -3,6 +3,7 @@ package com.example.devops;
 import com.example.devops.health.TemplateHealthCheck;
 import com.example.devops.resources.FibonacciResource;
 import com.example.devops.resources.HelloWorldResource;
+import com.example.devops.resources.StatusResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -39,6 +40,9 @@ public class DevOpsApplication extends Application<DevOpsConfiguration> {
         final TemplateHealthCheck healthCheck =
             new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
+
+        final StatusResource statusResource = new StatusResource(environment.healthChecks());
+        environment.jersey().register(statusResource);
     }
 
 }
