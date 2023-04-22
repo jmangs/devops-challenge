@@ -12,3 +12,14 @@ data "oci_core_images" "oraclelinux-8" {
     regex  = true
   }
 }
+
+data "oci_core_images" "oraclelinux-8-a1" {
+  compartment_id           = var.root_compartment_id
+  operating_system         = "Oracle Linux"
+  operating_system_version = "8"
+  filter {
+    name   = "display_name"
+    values = ["Oracle-Linux-8.7-aarch64-2023.03.28-0"] # Have to pick this specific image for it to work with A1 compute
+    regex  = true
+  }
+}

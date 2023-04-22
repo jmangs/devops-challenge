@@ -23,9 +23,18 @@ module "application" {
 module "bastion" {
   source                   = "./bastion"
   compartment_id           = module.compartments.bastion_compartment_id
-  availability_domain_name = data.oci_identity_availability_domains.ads.availability_domains.1.name # AD1 is out of "free" compute....
+  availability_domain_name = data.oci_identity_availability_domains.ads.availability_domains.1.name
   subnet_id                = module.networking.bastion_subnet_id
   image_id                 = data.oci_core_images.oraclelinux-8.images.0.id
+  ssh_public_key           = var.ssh_public_key
+}
+
+module "grafana" {
+  source                   = "./grafana"
+  compartment_id           = module.compartments.application_compartment_id
+  availability_domain_name = data.oci_identity_availability_domains.ads.availability_domains.0.name # AD2 is out of A1 compute....
+  subnet_id                = module.networking.application_subnet_id
+  image_id                 = data.oci_core_images.oraclelinux-8-a1.images.0.id
   ssh_public_key           = var.ssh_public_key
 }
 
@@ -33,5 +42,6 @@ module "loadbalancer" {
   source                 = "./loadbalancer"
   compartment_id         = module.compartments.application_compartment_id
   application_compute_ip = module.application.application_compute_ip
+  grafana_compute_id     = module.grafana.grafana_compute_ip
   public_subnet_id       = module.networking.public_access_subnet_id
 }

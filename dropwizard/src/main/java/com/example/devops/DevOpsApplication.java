@@ -41,7 +41,7 @@ public class DevOpsApplication extends Application<DevOpsConfiguration> {
             new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
 
-        final StatusResource statusResource = new StatusResource(environment.healthChecks());
+        final StatusResource statusResource = new StatusResource(environment.healthChecks(), environment.metrics());
         environment.jersey().register(statusResource);
     }
 

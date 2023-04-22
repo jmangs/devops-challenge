@@ -33,3 +33,14 @@ docker build . -t jmangs/oci-devops-challenge
 ```
 
 After that just run the container as you wish. You can also do `docker pull jmangs/oci-devops-challenge` to just grab the public DockerHub image.
+
+# Grafana
+
+If you are setting up Grafana on your own compute, you will need to do some manual setup:
+1. Change the admin password for the instance after it's up.
+2. Add the Infinity Datasource to the Grafana instance.
+3. Import the [Dashboard JSON](https://gist.github.com/jmangs/2abb5e1cc6f57b6a313759e5cd724424).
+4. Update the panels with the public IP of the Dropwizard service.
+
+You can run a local Grafana with Docker and test the same dashboard above by using your `localhost` as the target instead. The metrics are all
+self-contained for simplicity's sake so there's no need to run Prometheus or worry about setting up exporters for this exercise.
