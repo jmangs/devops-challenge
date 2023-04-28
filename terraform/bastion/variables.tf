@@ -20,5 +20,5 @@ variable "ssh_public_key" {
 
 variable "shape" {
   type    = string
-  default = "VM.Standard.E2.1.Micro"
+  default = "VM.Standard.A1.Flex"
 }

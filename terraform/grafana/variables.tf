@@ -22,3 +22,7 @@ variable "shape" {
   type    = string
   default = "VM.Standard.A1.Flex"
 }
+
+variable "loadbalancer_id" {
+  type = string
+}

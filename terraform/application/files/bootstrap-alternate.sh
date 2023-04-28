@@ -1,6 +1,5 @@
 #!/bin/bash
 
-yum install -y jdk1.8
 yum config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker-ce
 
@@ -8,9 +7,6 @@ systemctl enable docker.service
 systemctl start docker.service
 
 docker pull jmangs/oci-devops-challenge
-
-firewall-offline-cmd --add-port=8080/tcp --zone=public
-systemctl restart firewalld
 
 cat << EOF > /etc/systemd/system/docker.dropwizard.service
 [Unit]
